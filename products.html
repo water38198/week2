@@ -40,14 +40,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="product in productList" :key="product.id">
-                            <td>{{product.title}}</td>
-                            <td>{{product.origin_price}}</td>
-                            <td>{{product.price}}</td>
-                            <td><span class="text-success" v-if="product.is_enabled">啟用</span><span class="text-danger"
-                                    v-else>未啟用</span></td>
-                            <td><button class="btn btn-primary" v-on:click="tempProduct = product">查看細節</button></td>
-                        </tr>
+                        <template v-if="productList">
+                            <tr v-for="product in productList" :key="product.id">
+                                <td>{{product.title}}</td>
+                                <td>{{product.origin_price}}</td>
+                                <td>{{product.price}}</td>
+                                <td><span class="text-success" v-if="product.is_enabled">啟用</span><span
+                                        class="text-danger" v-else>未啟用</span></td>
+                                <td><button class="btn btn-primary" v-on:click="tempProduct = product">查看細節</button>
+                                </td>
+                            </tr>
+                        </template>
                     </tbody>
                     <tfoot>
                         <tr>
