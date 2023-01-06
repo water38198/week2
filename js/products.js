@@ -9,15 +9,23 @@ const app = {
         };
     },
     created() {
-        this.myToken = document.cookie.replace(
-            /(?:(?:^|.*;\s*)myToken\s*\=\s*([^;]*).*$)|^.*$/,
-            "$1"
-        );
-        console.log(this.myToken);
-        if (!this.myToken) {
-            alert("請先登入");
-            location.href = "index.html";
-        } else {
+        this.isLogin();
+    },
+    methods: {
+        isLogin() {
+            this.myToken = document.cookie.replace(
+                /(?:(?:^|.*;\s*)myToken\s*\=\s*([^;]*).*$)|^.*$/,
+                "$1"
+            );
+            console.log(this.myToken);
+            if (!this.myToken) {
+                alert("請先登入");
+                location.href = "index.html";
+            } else {
+                this.getProductData();
+            }
+        },
+        getProductData() {
             axios.defaults.headers.common["Authorization"] = this.myToken;
             axios
                 .get(`${url}/v2/api/${api_path}/admin/products`)
@@ -29,12 +37,6 @@ const app = {
                 .catch((err) => {
                     console.log(err);
                 });
-        }
-    },
-    methods: {
-        count() {
-            this.productList.push(1);
-            console.log(this.productList);
         },
     },
 };
